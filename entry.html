@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enter Stats</title>
+
+<style>
+body {font-family:Arial;background:#fdf8f0;padding:20px;}
+form {max-width:400px;margin:auto;background:white;padding:20px;border-radius:10px;}
+input,button {width:100%;margin:8px 0;padding:10px;}
+button {background:#2d5a27;color:white;border:none;}
+</style>
+</head>
+
+<body>
+
+<div id="loginBox">
+  <h2>Coach Login</h2>
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Enter</button>
+</div>
+
+<div id="app" style="display:none;">
+
+<h1>Enter Game Stats</h1>
+
+<form id="statForm">
+  <input type="text" id="name" placeholder="Player Name" required>
+  <input type="number" id="AB" placeholder="At Bats" required>
+  <input type="number" id="H" placeholder="Hits" required>
+  <input type="number" id="BB" placeholder="Walks">
+  <input type="number" id="TB" placeholder="Total Bases">
+  <button type="submit">Save Game</button>
+</form>
+
+</div>
+
+<script>
+const COACH_PASSWORD = "wildflowers2026";
+
+function login(){
+  if(document.getElementById("password").value === COACH_PASSWORD){
+    loginBox.style.display="none";
+    app.style.display="block";
+  } else alert("Wrong password");
+}
+
+document.getElementById("statForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const gameEntry = {
+    name: name.value,
+    AB: +AB.value,
+    H: +H.value,
+    BB: +BB.value || 0,
+    TB: +TB.value || 0,
+    date: new Date().toLocaleDateString()
+  };
+
+  let games = JSON.parse(localStorage.getItem("games")) || [];
+  games.push(gameEntry);
+  localStorage.setItem("games", JSON.stringify(games));
+
+  // GOOGLE SHEETS (paste your URL)
+  fetch("YOUR_WEB_APP_URL", {
+    method:"POST",
+    body: JSON.stringify(gameEntry)
+  });
+
+  alert("Saved!");
+  this.reset();
+});
+</script>
+
+</body>
+</html>
