@@ -4,29 +4,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Stats</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 body {font-family:Arial;background:#fdf8f0;}
+h1{text-align:center;}
 table {width:95%;margin:auto;background:white;border-collapse:collapse;}
 th,td {padding:10px;text-align:center;}
 th {background:#2d5a27;color:white;}
+button {background:red;color:white;border:none;padding:5px;}
 </style>
 </head>
 
 <body>
 
-<canvas id="chart" height="100"></canvas>
-<div id="awards"></div>
+<h1>🌸 Team Stats</h1>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  
-<h1 style="text-align:center;">Team Stats</h1>
+<canvas id="chart" style="max-width:600px;margin:auto;"></canvas>
 
 <table id="statsTable">
 <thead>
 <tr>
 <th>Player</th><th>AB</th><th>H</th><th>BB</th>
-<th>AVG</th><th>OBP</th><th>SLG</th><th>OPS</th>
+<th>AVG</th><th>OBP</th><th>SLG</th><th>OPS</th><th>❌</th>
 </tr>
 </thead>
 <tbody></tbody>
