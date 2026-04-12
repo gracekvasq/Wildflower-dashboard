@@ -16,60 +16,59 @@ button {background:#2d5a27;color:white;border:none;}
 
 <div id="loginBox">
   <h2>Coach Login</h2>
-  <input type="password" id="password" placeholder="Password">
+  <input type="password" id="password">
   <button onclick="login()">Enter</button>
 </div>
 
 <div id="app" style="display:none;">
-
 <h1>Enter Game Stats</h1>
 
-<form id="statForm">
-  <input type="text" id="name" placeholder="Player Name" required>
-  <input type="number" id="AB" placeholder="At Bats" required>
-  <input type="number" id="H" placeholder="Hits" required>
-  <input type="number" id="BB" placeholder="Walks">
-  <input type="number" id="TB" placeholder="Total Bases">
-  <button type="submit">Save Game</button>
+<form id="form">
+<input id="name" placeholder="Player Name" required>
+<input id="AB" type="number" placeholder="AB" required>
+<input id="H" type="number" placeholder="Hits" required>
+<input id="BB" type="number" placeholder="Walks">
+<input id="TB" type="number" placeholder="Total Bases">
+<button>Save</button>
 </form>
-
 </div>
 
 <script>
-const COACH_PASSWORD = "wildflowers2026";
+const PASS="wildflowers2026";
 
 function login(){
-  if(document.getElementById("password").value === COACH_PASSWORD){
+  if(password.value===PASS){
     loginBox.style.display="none";
     app.style.display="block";
   } else alert("Wrong password");
 }
 
-document.getElementById("statForm").addEventListener("submit", function(e){
+form.onsubmit = e=>{
   e.preventDefault();
 
-  const gameEntry = {
-    name: name.value,
-    AB: +AB.value,
-    H: +H.value,
-    BB: +BB.value || 0,
-    TB: +TB.value || 0,
-    date: new Date().toLocaleDateString()
+  const game={
+    name:name.value,
+    AB:+AB.value,
+    H:+H.value,
+    BB:+BB.value||0,
+    TB:+TB.value||0,
+    date:new Date().toLocaleDateString()
   };
 
-  let games = JSON.parse(localStorage.getItem("games")) || [];
-  games.push(gameEntry);
-  localStorage.setItem("games", JSON.stringify(games));
+  let games=JSON.parse(localStorage.getItem("games"))||[];
+  games.push(game);
+  localStorage.setItem("games",JSON.stringify(games));
 
-  // GOOGLE SHEETS (paste your URL)
-  fetch("https://script.google.com/macros/s/AKfycbwki5xZEbrwBEBQCasJaOz2o7GCMwCGm0yipmQ3-L7eNu4pUcxqm4kALlK3ACCEf83q/exec", {
+  // GOOGLE SHEETS
+  fetch("https://script.google.com/macros/s/AKfycbwki5xZEbrwBEBQCasJaOz2o7GCMwCGm0yipmQ3-L7eNu4pUcxqm4kALlK3ACCEf83q/exec",{
     method:"POST",
-    body: JSON.stringify(gameEntry)
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(game)
   });
 
-  alert("Saved!");
-  this.reset();
-});
+  alert("✅ Saved!");
+  form.reset();
+}
 </script>
 
 </body>
