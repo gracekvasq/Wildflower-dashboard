@@ -34,29 +34,24 @@ players.forEach(p=>{
     <td>${p.OBP}</td>
     <td>${p.SLG}</td>
     <td>${p.OPS}</td>
+    <td><button onclick="del('${p.name}')">X</button></td>
   `;
   tbody.appendChild(row);
 });
-// CHART
-const ctx = document.getElementById("chart");
 
-new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: players.map(p=>p.name),
-    datasets: [{
-      label: "Batting Average",
-      data: players.map(p=>p.AVG)
-    }]
+// DELETE
+function del(name){
+  let games=JSON.parse(localStorage.getItem("games"))||[];
+  games=games.filter(g=>g.name!==name);
+  localStorage.setItem("games",JSON.stringify(games));
+  location.reload();
+}
+
+// CHART
+new Chart(document.getElementById("chart"),{
+  type:"bar",
+  data:{
+    labels:players.map(p=>p.name),
+    datasets:[{label:"AVG",data:players.map(p=>p.AVG)}]
   }
 });
-
-// AWARDS
-const awardsDiv = document.getElementById("awards");
-
-const topAVG = players.sort((a,b)=>b.AVG-a.AVG)[0];
-
-awardsDiv.innerHTML = `
-  <h2>🏆 Team Awards</h2>
-  <p>MVP: ${topAVG.name}</p>
-`;
