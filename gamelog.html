@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Game Log</title></head>
+<body>
+
+<h1>Game Log</h1>
+<ul id="log"></ul>
+
+<script>
+let games=JSON.parse(localStorage.getItem("games"))||[];
+
+games.forEach(g=>{
+  let li=document.createElement("li");
+  li.textContent=`${g.date} - ${g.name}: ${g.H}/${g.AB}`;
+  log.appendChild(li);
+});
+</script>
+
+</body>
+</html>
