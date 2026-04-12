@@ -62,7 +62,7 @@ document.getElementById("statForm").addEventListener("submit", function(e){
   localStorage.setItem("games", JSON.stringify(games));
 
   // GOOGLE SHEETS (paste your URL)
-  fetch("YOUR_WEB_APP_URL", {
+  fetch("https://script.google.com/macros/s/AKfycbwki5xZEbrwBEBQCasJaOz2o7GCMwCGm0yipmQ3-L7eNu4pUcxqm4kALlK3ACCEf83q/exec", {
     method:"POST",
     body: JSON.stringify(gameEntry)
   });
