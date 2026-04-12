@@ -37,3 +37,26 @@ players.forEach(p=>{
   `;
   tbody.appendChild(row);
 });
+// CHART
+const ctx = document.getElementById("chart");
+
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: players.map(p=>p.name),
+    datasets: [{
+      label: "Batting Average",
+      data: players.map(p=>p.AVG)
+    }]
+  }
+});
+
+// AWARDS
+const awardsDiv = document.getElementById("awards");
+
+const topAVG = players.sort((a,b)=>b.AVG-a.AVG)[0];
+
+awardsDiv.innerHTML = `
+  <h2>🏆 Team Awards</h2>
+  <p>MVP: ${topAVG.name}</p>
+`;
